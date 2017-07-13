@@ -302,8 +302,10 @@ public class AirMapView extends MapView implements GoogleMap.InfoWindowAdapter,
             map.setMyLocationEnabled(showUserLocation);
           }
           synchronized (AirMapView.this) {
-            AirMapView.this.onResume();
-            paused = false;
+            if(!destroyed) {
+              AirMapView.this.onResume();
+              paused = false;
+            }
           }
         }
 
@@ -314,8 +316,10 @@ public class AirMapView extends MapView implements GoogleMap.InfoWindowAdapter,
             map.setMyLocationEnabled(false);
           }
             synchronized (AirMapView.this) {
+              if(!destroyed) {
                 AirMapView.this.onPause();
                 paused = true;
+              }
             }
         }
 
